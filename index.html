@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL代码格式化工具</title>
+    
+    <!-- 引入 Tailwind CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/lib.min.js" rel="stylesheet">
+    
+    <!-- 引入 CodeMirror 样式 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/theme/default.min.css">
+    
+    <style>
+        .CodeMirror {
+            height: 70vh;
+            border: 1px solid #ddd;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold text-center mb-6">SQL代码格式化工具</h1>
+        
+        <div class="flex flex-col md:flex-row gap-4">
+            <!-- 左侧输入区 -->
+            <div class="w-full md:w-1/2">
+                <div class="bg-white p-4 rounded shadow">
+                    <h2 class="text-lg font-semibold mb-2">原始SQL</h2>
+                    <textarea id="input-sql"></textarea>
+                </div>
+            </div>
+            
+            <!-- 右侧输出区 -->
+            <div class="w-full md:w-1/2">
+                <div class="bg-white p-4 rounded shadow">
+                    <h2 class="text-lg font-semibold mb-2">格式化SQL</h2>
+                    <textarea id="output-sql"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 操作按钮 -->
+        <div class="flex justify-center mt-6 gap-4">
+            <button id="format-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+                格式化
+            </button>
+            <button id="copy-btn" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+                复制
+            </button>
+            <button id="clear-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded">
+                清空
+            </button>
+        </div>
+    </div>
+    
+    <!-- 提示框 -->
+    <div id="notification" class="notification hidden"></div>
+    
+    <!-- 引入 CodeMirror 脚本 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/sql/sql.min.js"></script>
+    
+    <!-- 引入 sql-formatter 脚本 -->
+    <script src="https://cdn.jsdelivr.net/npm/sql-formatter@15.6.2/dist/sql-formatter.min.js"></script>
+    
+    <!-- 自定义脚本 -->
+    <script src="script.js"></script>
+</body>
+</html>
